@@ -1,0 +1,1 @@
+# redash-setup-centos
