@@ -53,16 +53,6 @@ install_system_packages() {
     systemctl start postgresql
     systemctl enable redis
     systemctl start redis
-
-    # Base packages
-    #apt install -y python-pip python-dev nginx curl build-essential pwgen
-    # Data sources dependencies:
-    #apt install -y libffi-dev libssl-dev libmysqlclient-dev libpq-dev freetds-dev libsasl2-dev
-    # SAML dependency
-    #apt install -y xmlsec1
-    # Storage servers
-    #apt install -y postgresql redis-server
-    #apt install -y supervisor
 }
 
 create_redash_user() {
@@ -76,9 +66,6 @@ create_directories() {
     # Default config file
     if [ ! -f "$REDASH_BASE_PATH/.env" ]; then
        curl "$FILES_BASE_URL/env" -o $REDASH_BASE_PATH/.env
-       #echo 'export REDASH_LOG_LEVEL="INFO"' >> $REDASH_BASE_PATH/.env
-       #echo 'export REDASH_REDIS_URL=redis://localhost:6379/0' >> $REDASH_BASE_PATH/.env
-       #echo 'export REDASH_DATABASE_URL="postgresql:///redash"' >> $REDASH_BASE_PATH/.env
     fi
 
     COOKIE_SECRET=$(mkpasswd -l 32)
@@ -97,7 +84,6 @@ extract_redash_sources() {
 
 install_python_packages() {
     pip install --upgrade pip
-    # TODO: venv?
     pip install setproctitle # setproctitle is used by Celery for "pretty" process titles
     pip install -r $REDASH_BASE_PATH/current/requirements.txt
     pip install -r $REDASH_BASE_PATH/current/requirements_all_ds.txt
@@ -120,9 +106,6 @@ setup_supervisor() {
 setup_nginx() {
     rm /etc/nginx/conf.d/default.conf
     curl $FILES_BASE_URL/nginx_redash_site -o /etc/nginx/conf.d/default.conf
-    #rm /etc/nginx/sites-enabled/default
-    #wget -O /etc/nginx/sites-available/redash "$FILES_BASE_URL/nginx_redash_site"
-    #ln -nfs /etc/nginx/sites-available/redash /etc/nginx/sites-enabled/redash
     systemctl enable nginx
     systemctl start nginx
 }
