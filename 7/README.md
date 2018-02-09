@@ -6,7 +6,7 @@ Execute the following command for installing Redash on centOS 7.
 
     # git clone https://github.com/oscasierra/redash-setup-centos.git
     # cd redash-setup-centos/7
-    # bootstrap.sh
+    # source bootstrap.sh
 
 ## SELinux & Firewalld Settings
 
