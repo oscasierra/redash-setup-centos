@@ -104,7 +104,7 @@ setup_supervisor() {
 }
 
 setup_nginx() {
-    rm /etc/nginx/conf.d/default.conf
+    rm -f /etc/nginx/conf.d/default.conf
     curl $FILES_BASE_URL/nginx_redash_site -o /etc/nginx/conf.d/default.conf
     systemctl enable nginx
     systemctl start nginx
