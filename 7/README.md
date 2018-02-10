@@ -12,7 +12,7 @@ Execute the following command for installing Redash on centOS 7.
 
 ### SELinux
 
-If your centOS is enable SELinux, you might need to change your SELinux Setting.
+If SELinux is enabled, you might need to change your SELinux Setting.
 
     setsebool httpd_can_network_connect on -P
 
@@ -20,7 +20,7 @@ If your centOS is enable SELinux, you might need to change your SELinux Setting.
 
 ### Firewalld
 
-If your centOS is enable Firewalld, you need to permit 80 port access.
+If firewalld is enabled, you need to permit 80 port access.
 
     # firewall-cmd --add-service=http --zone=public --permanent
     # firewall-cmd --reload
